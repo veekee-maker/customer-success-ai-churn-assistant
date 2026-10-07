@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Success AI Churn Early-Warning Assistant</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:900px;margin:0 auto;padding:40px 20px;line-height:1.6;background:#f7f8fc;color:#172033}
+.card{background:white;padding:28px;border-radius:18px;margin:18px 0;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+h1{font-size:38px;line-height:1.1}
+textarea{width:100%;min-height:130px;padding:14px;border:1px solid #ccd2df;border-radius:10px;box-sizing:border-box;font:inherit}
+button{padding:12px 18px;border:0;border-radius:10px;cursor:pointer;font-weight:700}
+.output{white-space:pre-wrap;background:#f1f3f8;padding:18px;border-radius:12px}
+.small{color:#596579}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Customer Success AI Churn Early-Warning Assistant</h1>
+<p class="small">An AI-assisted learning project by Victoria Ijeoma Daniel</p>
+<p>This prototype helps a Customer Success Manager turn customer feedback into structured risk signals and recommended next actions.</p>
+</div>
+
+<div class="card">
+<h2>Try a customer message</h2>
+<textarea id="msg">We've been trying to get our team set up for two weeks. Some people still don't understand the workflow, and I'm not sure the product is worth the effort.</textarea>
+<br><br>
+<button onclick="analyze()">Analyze with my CS framework</button>
+<div id="out" class="output" style="margin-top:18px">Your analysis will appear here.</div>
+</div>
+
+<div class="card">
+<h2>My framework</h2>
+<p><strong>Detect → Investigate → Engage → Re-anchor → Execute</strong></p>
+<p>The prototype is designed as a learning exercise. AI can help organize signals, but the CSM remains responsible for judgement, context and the customer relationship.</p>
+</div>
+
+<script>
+function analyze(){
+ const m=document.getElementById('msg').value.toLowerCase();
+ let risk='Low', sentiment='Neutral', signals=[], action='Continue monitoring and follow up based on the customer’s goals.';
+ if(/frustrat|not sure|worth the effort|can't|cannot|problem|failed|delay|stuck|confus|difficult|two weeks|unhappy/.test(m)){
+   risk='High'; sentiment='Frustrated';
+   signals=['Possible onboarding delay','Adoption or enablement difficulty','Potential gap between expected and realized value'];
+   action='Reach out proactively, understand the specific blockers, offer targeted enablement, and reconnect the product to the customer’s desired outcome.';
+ } else if(/question|help|need|unsure|slow|issue/.test(m)){
+   risk='Medium'; sentiment='Concerned';
+   signals=['Possible friction or support need'];
+   action='Investigate the issue, clarify the desired outcome, and agree on a clear next step.';
+ }
+ document.getElementById('out').textContent =
+ 'Sentiment: '+sentiment+'\n\nRisk: '+risk+'\n\nRisk signals:\n• '+signals.join('\n• ')+'\n\nRecommended CSM action:\n'+action+'\n\nNext step: Validate the interpretation with the customer before making assumptions.';
+}
+</script>
+</body>
+</html>
